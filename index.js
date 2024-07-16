@@ -13,17 +13,19 @@ app.post("/send-email", (req, res) => {
   const { name, email, message } = req.body;
 
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 465, // Port 465 untuk SSL atau 587 untuk TLS
+    secure: true, // true untuk port 465, false untuk port 587
     auth: {
-      user: "your-email@gmail.com",
-      pass: "your-email-password",
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
     },
   });
 
   const mailOptions = {
-    from: "your-email@gmail.com",
-    to: "recipient-email@example.com",
-    subject: "New Contact Form Submission",
+    from: process.env.EMAIL_USER,
+    to: "orlenalycious@gmail.com",
+    subject: "New Contact Form Submission Orlenalycious",
     text: `
       Name: ${name}
       Email: ${email}
